@@ -4,25 +4,32 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 import {
-  Sparkles,
-  HandHeart,
-  Droplets,
-  Sun,
-  Zap,
-  Flower2,
   ArrowUpRight,
   Phone,
   Menu,
   X,
   MoonStar,
   SunMedium,
+  User,
+  Sparkles,
+  Images,
+  BookOpen,
+  Mail,
+  Star,
+  HelpCircle,
+  ScrollText,
+  FlaskConical,
+  FileText,
+  CalendarClock,
+  MapPin,
+  Tag,
 } from "lucide-react";
 import { useTheme } from "./theme-provider";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 
-type NavItem = { label: string; href: string; hasMega?: boolean };
+type NavItem = { label: string; href: string };
 const NAV: NavItem[] = [
-  { label: "Szolgáltatások", href: "/szolgaltatasok", hasMega: true },
+  { label: "Szolgáltatások", href: "/szolgaltatasok" },
   { label: "Rólam", href: "/rolam" },
   { label: "Aktuális ajánlatok", href: "/aktualis-ajanlatok" },
   { label: "Galéria", href: "/galeria" },
@@ -30,35 +37,43 @@ const NAV: NavItem[] = [
   { label: "Kapcsolat", href: "/kapcsolat" },
 ];
 
-const MEGA_GROUPS = [
+type MegaItem = {
+  icon: typeof User;
+  name: string;
+  desc: string;
+  href: string;
+};
+type MegaGroup = { title: string; items: MegaItem[] };
+
+const MEGA_GROUPS: MegaGroup[] = [
   {
-    title: "Arckezelések",
+    title: "Szalon",
     items: [
-      { icon: Sparkles, name: "Orvoskozmetikai kezelések", desc: "Biodroga Medical Institute, anti-age, EGF" },
-      { icon: Droplets, name: "Hidratáló & dehidratált bőr", desc: "Mély hidratálás minden bőrtípusra" },
-      { icon: Flower2, name: "Vegán & bio kezelések", desc: "Biodroga Organic, Vagheggi fitokozmetika" },
-      { icon: Sun, name: "Halványító kezelések", desc: "Pigmentfoltok, bőrszín-homogenizálás" },
+      { icon: User, name: "Rólam", desc: "Paksi Anett kozmetikus", href: "/rolam" },
+      { icon: Sparkles, name: "Szolgáltatások", desc: "Teljes kezelési kínálat", href: "/szolgaltatasok" },
+      { icon: Tag, name: "Aktuális ajánlatok", desc: "Szezonális kedvezmények", href: "/aktualis-ajanlatok" },
+      { icon: Images, name: "Galéria", desc: "A szalon és a kezelések", href: "/galeria" },
     ],
   },
   {
-    title: "Speciális technológiák",
+    title: "Tudástár",
     items: [
-      { icon: Zap, name: "Lágylézer kezelések", desc: "Beauty-Glow, SlowAging, AllAges quick-lifting" },
-      { icon: Sparkles, name: "Mikrotűs – savas kezelések", desc: "Dermapen, kollagén-indukció, peeling" },
-      { icon: Zap, name: "Rádiófrekvencia & elektroporáció", desc: "Feszesítés és hatóanyag-bejuttatás" },
-      { icon: Sparkles, name: "Arkana neurokozmetika", desc: "GABA Therapy, Eye Complex Care" },
+      { icon: BookOpen, name: "Blog", desc: "Szakmai cikkek, hírek", href: "/blog" },
+      { icon: Star, name: "Referenciák", desc: "Vendégeim visszajelzései", href: "/referenciak" },
+      { icon: HelpCircle, name: "GYIK", desc: "Gyakori kérdések", href: "/gyik" },
+      { icon: ScrollText, name: "Szalonetikett", desc: "Hogyan készülj a látogatásra", href: "/szalonetikett" },
     ],
   },
   {
-    title: "Masszázs & test",
+    title: "Márkák & dokumentumok",
     items: [
-      { icon: HandHeart, name: "Japán arcmasszázs", desc: "Speciális arcszobrász technika" },
-      { icon: HandHeart, name: "Szervzónás arcmasszázs", desc: "Arcdiagnosztika és reflexzóna" },
-      { icon: HandHeart, name: "Vagheggi testkezelések", desc: "5 elem masszázs, Fuoco alakformálás" },
-      { icon: HandHeart, name: "Testmasszázsok", desc: "Lignum / Maderoterápia, cellulit" },
+      { icon: FlaskConical, name: "Kozmetikai márkák", desc: "Biodroga, Vagheggi, MEI, GMS…", href: "/markak" },
+      { icon: Mail, name: "Hírlevél", desc: "Iratkozz fel az újdonságokra", href: "/hirlevel" },
+      { icon: FileText, name: "Dokumentumok", desc: "Impresszum, ÁSZF, adatkezelés", href: "/dokumentumok" },
+      { icon: CalendarClock, name: "Következő szabad időpont", desc: "Foglalás előtti tájékoztató", href: "/kapcsolat" },
     ],
   },
-] as const;
+];
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
@@ -78,6 +93,13 @@ export function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  // Close mega on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMegaOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[padding,backdrop-filter] duration-500 ${
@@ -85,7 +107,7 @@ export function SiteHeader() {
       }`}
       onMouseLeave={() => setMegaOpen(false)}
     >
-      <div className={`mx-auto max-w-[1400px] px-6 transition-all duration-500 ${scrolled ? "" : ""}`}>
+      <div className="mx-auto max-w-[1400px] px-6">
         <div
           className={`flex items-center justify-between rounded-full border border-line transition-all duration-500 ${
             scrolled ? "h-12 px-4 glass" : "h-14 px-5 bg-background/40 backdrop-blur-md"
@@ -104,19 +126,14 @@ export function SiteHeader() {
           {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-1">
             {NAV.map((item) => (
-              <div
+              <Link
                 key={item.href}
-                className="relative"
-                onMouseEnter={() => item.hasMega && setMegaOpen(true)}
+                to={item.href}
+                className="link-underline rounded-full px-3.5 py-1.5 text-[13px] font-medium text-foreground/80 transition-colors hover:text-foreground"
+                activeProps={{ className: "text-foreground" }}
               >
-                <Link
-                  to={item.href}
-                  className="link-underline rounded-full px-3.5 py-1.5 text-[13px] font-medium text-foreground/80 transition-colors hover:text-foreground"
-                  activeProps={{ className: "text-foreground" }}
-                >
-                  {item.label}
-                </Link>
-              </div>
+                {item.label}
+              </Link>
             ))}
           </nav>
 
@@ -136,6 +153,18 @@ export function SiteHeader() {
               className="grid size-9 place-items-center rounded-full border border-line text-foreground/70 hover:text-foreground hover:border-line-strong transition-colors"
             >
               {theme === "dark" ? <SunMedium className="size-4" /> : <MoonStar className="size-4" />}
+            </button>
+            {/* Mega menu trigger (desktop) */}
+            <button
+              type="button"
+              onMouseEnter={() => setMegaOpen(true)}
+              onClick={() => setMegaOpen((o) => !o)}
+              aria-label="Teljes menü"
+              aria-expanded={megaOpen}
+              className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[12px] text-foreground/80 hover:text-foreground hover:border-line-strong transition-colors"
+            >
+              <Menu className="size-3.5" />
+              Menü
             </button>
             <a
               href="#foglalas"
@@ -170,7 +199,6 @@ export function SiteHeader() {
           >
             <div className="glass-panel rounded-3xl overflow-hidden shadow-2xl shadow-black/30">
               <div className="grid grid-cols-12 gap-0">
-                {/* 3 columns of categories */}
                 <div className="col-span-12 lg:col-span-9 grid grid-cols-1 md:grid-cols-3 gap-px bg-line">
                   {MEGA_GROUPS.map((group) => (
                     <div key={group.title} className="bg-background/40 p-6">
@@ -181,7 +209,8 @@ export function SiteHeader() {
                           return (
                             <li key={it.name}>
                               <Link
-                                to="/szolgaltatasok"
+                                to={it.href as any}
+                                onClick={() => setMegaOpen(false)}
                                 className="group flex items-start gap-3 rounded-xl p-2.5 -mx-2.5 transition-colors hover:bg-foreground/[0.04]"
                               >
                                 <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg border border-line bg-background/60 text-foreground/70 group-hover:text-poppy group-hover:border-poppy/40 transition-colors">
@@ -213,27 +242,31 @@ export function SiteHeader() {
                   <div className="relative">
                     <div className="eyebrow mb-3 inline-flex items-center gap-2">
                       <span className="size-1.5 rounded-full bg-sage" />
-                      Szezon favorit
+                      Látogatás
                     </div>
                     <h4 className="font-serif text-2xl leading-tight">
-                      Japán arcmasszázs — speciális arcszobrász technika
+                      Egyetlen kezelőágy. Teljes figyelem.
                     </h4>
+                    <p className="mt-2 text-[12px] text-muted-foreground leading-snug">
+                      Budapest II. kerület · Fő utca 49.
+                    </p>
                   </div>
                   <Link
-                    to="/szolgaltatasok"
+                    to="/kapcsolat"
+                    onClick={() => setMegaOpen(false)}
                     className="relative inline-flex items-center gap-2 text-[12px] text-mono text-foreground/80 hover:text-poppy transition-colors"
                   >
-                    Összes szolgáltatás megtekintése
+                    <MapPin className="size-3.5" />
+                    Útvonal & elérhetőség
                     <ArrowUpRight className="size-3.5" />
                   </Link>
                 </div>
               </div>
-              {/* Bottom row: contact */}
               <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line bg-background/40 px-6 py-3">
-                <span className="eyebrow">Budapest II. ker. · Fő utca 49.</span>
-                <span className="text-[12px] text-mono text-foreground/60">
-                  Egyetlen kezelőágy. Csak Ön és a szakértelem.
-                </span>
+                <span className="eyebrow">Paksi Anett · kozmetikus mester</span>
+                <a href="tel:+36306582730" className="text-[12px] text-mono text-foreground/70 hover:text-poppy">
+                  +36 30 658 2730
+                </a>
               </div>
             </div>
           </motion.div>
@@ -247,7 +280,7 @@ export function SiteHeader() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="lg:hidden fixed inset-0 top-[64px] bg-background z-40"
+            className="lg:hidden fixed inset-0 top-[64px] bg-background z-40 overflow-y-auto"
           >
             <div className="px-6 py-8 space-y-1">
               {NAV.map((item) => (
@@ -261,6 +294,19 @@ export function SiteHeader() {
                   <ArrowUpRight className="size-5 text-muted-foreground" />
                 </Link>
               ))}
+              <div className="pt-6 space-y-1">
+                {MEGA_GROUPS.flatMap((g) => g.items).map((it) => (
+                  <Link
+                    key={it.href + it.name}
+                    to={it.href as any}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between py-2.5 text-sm text-foreground/80"
+                  >
+                    {it.name}
+                    <ArrowUpRight className="size-4 text-muted-foreground" />
+                  </Link>
+                ))}
+              </div>
               <a
                 href="tel:+36306582730"
                 className="mt-8 flex items-center gap-2 text-mono text-sm text-muted-foreground"

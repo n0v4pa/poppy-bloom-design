@@ -10,9 +10,15 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SzolgaltatasokRouteImport } from './routes/szolgaltatasok'
+import { Route as SzalonetikettRouteImport } from './routes/szalonetikett'
 import { Route as RolamRouteImport } from './routes/rolam'
+import { Route as ReferenciakRouteImport } from './routes/referenciak'
+import { Route as MarkakRouteImport } from './routes/markak'
 import { Route as KapcsolatRouteImport } from './routes/kapcsolat'
+import { Route as HirlevelRouteImport } from './routes/hirlevel'
+import { Route as GyikRouteImport } from './routes/gyik'
 import { Route as GaleriaRouteImport } from './routes/galeria'
+import { Route as DokumentumokRouteImport } from './routes/dokumentumok'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as AktualisAjanlatokRouteImport } from './routes/aktualis-ajanlatok'
 import { Route as IndexRouteImport } from './routes/index'
@@ -22,9 +28,24 @@ const SzolgaltatasokRoute = SzolgaltatasokRouteImport.update({
   path: '/szolgaltatasok',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SzalonetikettRoute = SzalonetikettRouteImport.update({
+  id: '/szalonetikett',
+  path: '/szalonetikett',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RolamRoute = RolamRouteImport.update({
   id: '/rolam',
   path: '/rolam',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReferenciakRoute = ReferenciakRouteImport.update({
+  id: '/referenciak',
+  path: '/referenciak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarkakRoute = MarkakRouteImport.update({
+  id: '/markak',
+  path: '/markak',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KapcsolatRoute = KapcsolatRouteImport.update({
@@ -32,9 +53,24 @@ const KapcsolatRoute = KapcsolatRouteImport.update({
   path: '/kapcsolat',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HirlevelRoute = HirlevelRouteImport.update({
+  id: '/hirlevel',
+  path: '/hirlevel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GyikRoute = GyikRouteImport.update({
+  id: '/gyik',
+  path: '/gyik',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GaleriaRoute = GaleriaRouteImport.update({
   id: '/galeria',
   path: '/galeria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DokumentumokRoute = DokumentumokRouteImport.update({
+  id: '/dokumentumok',
+  path: '/dokumentumok',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogRoute = BlogRouteImport.update({
@@ -57,18 +93,30 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aktualis-ajanlatok': typeof AktualisAjanlatokRoute
   '/blog': typeof BlogRoute
+  '/dokumentumok': typeof DokumentumokRoute
   '/galeria': typeof GaleriaRoute
+  '/gyik': typeof GyikRoute
+  '/hirlevel': typeof HirlevelRoute
   '/kapcsolat': typeof KapcsolatRoute
+  '/markak': typeof MarkakRoute
+  '/referenciak': typeof ReferenciakRoute
   '/rolam': typeof RolamRoute
+  '/szalonetikett': typeof SzalonetikettRoute
   '/szolgaltatasok': typeof SzolgaltatasokRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aktualis-ajanlatok': typeof AktualisAjanlatokRoute
   '/blog': typeof BlogRoute
+  '/dokumentumok': typeof DokumentumokRoute
   '/galeria': typeof GaleriaRoute
+  '/gyik': typeof GyikRoute
+  '/hirlevel': typeof HirlevelRoute
   '/kapcsolat': typeof KapcsolatRoute
+  '/markak': typeof MarkakRoute
+  '/referenciak': typeof ReferenciakRoute
   '/rolam': typeof RolamRoute
+  '/szalonetikett': typeof SzalonetikettRoute
   '/szolgaltatasok': typeof SzolgaltatasokRoute
 }
 export interface FileRoutesById {
@@ -76,9 +124,15 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/aktualis-ajanlatok': typeof AktualisAjanlatokRoute
   '/blog': typeof BlogRoute
+  '/dokumentumok': typeof DokumentumokRoute
   '/galeria': typeof GaleriaRoute
+  '/gyik': typeof GyikRoute
+  '/hirlevel': typeof HirlevelRoute
   '/kapcsolat': typeof KapcsolatRoute
+  '/markak': typeof MarkakRoute
+  '/referenciak': typeof ReferenciakRoute
   '/rolam': typeof RolamRoute
+  '/szalonetikett': typeof SzalonetikettRoute
   '/szolgaltatasok': typeof SzolgaltatasokRoute
 }
 export interface FileRouteTypes {
@@ -87,27 +141,45 @@ export interface FileRouteTypes {
     | '/'
     | '/aktualis-ajanlatok'
     | '/blog'
+    | '/dokumentumok'
     | '/galeria'
+    | '/gyik'
+    | '/hirlevel'
     | '/kapcsolat'
+    | '/markak'
+    | '/referenciak'
     | '/rolam'
+    | '/szalonetikett'
     | '/szolgaltatasok'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/aktualis-ajanlatok'
     | '/blog'
+    | '/dokumentumok'
     | '/galeria'
+    | '/gyik'
+    | '/hirlevel'
     | '/kapcsolat'
+    | '/markak'
+    | '/referenciak'
     | '/rolam'
+    | '/szalonetikett'
     | '/szolgaltatasok'
   id:
     | '__root__'
     | '/'
     | '/aktualis-ajanlatok'
     | '/blog'
+    | '/dokumentumok'
     | '/galeria'
+    | '/gyik'
+    | '/hirlevel'
     | '/kapcsolat'
+    | '/markak'
+    | '/referenciak'
     | '/rolam'
+    | '/szalonetikett'
     | '/szolgaltatasok'
   fileRoutesById: FileRoutesById
 }
@@ -115,9 +187,15 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AktualisAjanlatokRoute: typeof AktualisAjanlatokRoute
   BlogRoute: typeof BlogRoute
+  DokumentumokRoute: typeof DokumentumokRoute
   GaleriaRoute: typeof GaleriaRoute
+  GyikRoute: typeof GyikRoute
+  HirlevelRoute: typeof HirlevelRoute
   KapcsolatRoute: typeof KapcsolatRoute
+  MarkakRoute: typeof MarkakRoute
+  ReferenciakRoute: typeof ReferenciakRoute
   RolamRoute: typeof RolamRoute
+  SzalonetikettRoute: typeof SzalonetikettRoute
   SzolgaltatasokRoute: typeof SzolgaltatasokRoute
 }
 
@@ -130,11 +208,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SzolgaltatasokRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/szalonetikett': {
+      id: '/szalonetikett'
+      path: '/szalonetikett'
+      fullPath: '/szalonetikett'
+      preLoaderRoute: typeof SzalonetikettRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rolam': {
       id: '/rolam'
       path: '/rolam'
       fullPath: '/rolam'
       preLoaderRoute: typeof RolamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/referenciak': {
+      id: '/referenciak'
+      path: '/referenciak'
+      fullPath: '/referenciak'
+      preLoaderRoute: typeof ReferenciakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markak': {
+      id: '/markak'
+      path: '/markak'
+      fullPath: '/markak'
+      preLoaderRoute: typeof MarkakRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kapcsolat': {
@@ -144,11 +243,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KapcsolatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hirlevel': {
+      id: '/hirlevel'
+      path: '/hirlevel'
+      fullPath: '/hirlevel'
+      preLoaderRoute: typeof HirlevelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gyik': {
+      id: '/gyik'
+      path: '/gyik'
+      fullPath: '/gyik'
+      preLoaderRoute: typeof GyikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/galeria': {
       id: '/galeria'
       path: '/galeria'
       fullPath: '/galeria'
       preLoaderRoute: typeof GaleriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dokumentumok': {
+      id: '/dokumentumok'
+      path: '/dokumentumok'
+      fullPath: '/dokumentumok'
+      preLoaderRoute: typeof DokumentumokRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -179,21 +299,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AktualisAjanlatokRoute: AktualisAjanlatokRoute,
   BlogRoute: BlogRoute,
+  DokumentumokRoute: DokumentumokRoute,
   GaleriaRoute: GaleriaRoute,
+  GyikRoute: GyikRoute,
+  HirlevelRoute: HirlevelRoute,
   KapcsolatRoute: KapcsolatRoute,
+  MarkakRoute: MarkakRoute,
+  ReferenciakRoute: ReferenciakRoute,
   RolamRoute: RolamRoute,
+  SzalonetikettRoute: SzalonetikettRoute,
   SzolgaltatasokRoute: SzolgaltatasokRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
