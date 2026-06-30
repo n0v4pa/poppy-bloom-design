@@ -37,7 +37,15 @@ const NAV: NavItem[] = [
   { label: "Kapcsolat", href: "/kapcsolat" },
 ];
 
-const MEGA_GROUPS = [
+type MegaItem = {
+  icon: typeof User;
+  name: string;
+  desc: string;
+  href: string;
+};
+type MegaGroup = { title: string; items: MegaItem[] };
+
+const MEGA_GROUPS: MegaGroup[] = [
   {
     title: "Szalon",
     items: [
@@ -65,7 +73,7 @@ const MEGA_GROUPS = [
       { icon: CalendarClock, name: "Következő szabad időpont", desc: "Foglalás előtti tájékoztató", href: "/kapcsolat" },
     ],
   },
-] as const;
+];
 
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
