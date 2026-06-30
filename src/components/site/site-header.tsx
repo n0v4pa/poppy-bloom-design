@@ -209,7 +209,7 @@ export function SiteHeader() {
                           return (
                             <li key={it.name}>
                               <Link
-                                to={it.href}
+                                to={it.href as any}
                                 onClick={() => setMegaOpen(false)}
                                 className="group flex items-start gap-3 rounded-xl p-2.5 -mx-2.5 transition-colors hover:bg-foreground/[0.04]"
                               >
@@ -298,7 +298,7 @@ export function SiteHeader() {
                 {MEGA_GROUPS.flatMap((g) => g.items).map((it) => (
                   <Link
                     key={it.href + it.name}
-                    to={it.href}
+                    to={it.href as any}
                     onClick={() => setMobileOpen(false)}
                     className="flex items-center justify-between py-2.5 text-sm text-foreground/80"
                   >
