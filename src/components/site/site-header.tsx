@@ -20,14 +20,15 @@ import {
 import { useTheme } from "./theme-provider";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 
-const NAV = [
+type NavItem = { label: string; href: string; hasMega?: boolean };
+const NAV: NavItem[] = [
   { label: "Szolgáltatások", href: "/szolgaltatasok", hasMega: true },
   { label: "Rólam", href: "/rolam" },
   { label: "Aktuális ajánlatok", href: "/aktualis-ajanlatok" },
   { label: "Galéria", href: "/galeria" },
   { label: "Blog", href: "/blog" },
   { label: "Kapcsolat", href: "/kapcsolat" },
-] as const;
+];
 
 const MEGA_GROUPS = [
   {
