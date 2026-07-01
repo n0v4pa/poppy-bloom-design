@@ -2,7 +2,7 @@
 
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Phone,
@@ -67,24 +67,26 @@ const MEGA_GROUPS: MegaGroup[] = [
 
 /** Animated hamburger → X (works on all viewports) */
 function MorphIcon({ open }: { open: boolean }) {
+  const lineStyle = { transformBox: "fill-box" as const, transformOrigin: "center" };
   return (
-    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+    <svg viewBox="0 0 24 24" className="size-4 overflow-visible" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
       <motion.line
-        x1="3" x2="21"
-        animate={open ? { y1: 12, y2: 12, rotate: 45 } : { y1: 7, y2: 7, rotate: 0 }}
-        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-        style={{ originX: "12px", originY: "12px" }}
+        x1="3" x2="21" y1="12" y2="12"
+        animate={open ? { y: 0, rotate: 45 } : { y: -5, rotate: 0 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        style={lineStyle}
       />
       <motion.line
         x1="3" x2="21" y1="12" y2="12"
-        animate={open ? { opacity: 0 } : { opacity: 1 }}
+        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
         transition={{ duration: 0.15 }}
+        style={lineStyle}
       />
       <motion.line
-        x1="3" x2="21"
-        animate={open ? { y1: 12, y2: 12, rotate: -45 } : { y1: 17, y2: 17, rotate: 0 }}
-        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-        style={{ originX: "12px", originY: "12px" }}
+        x1="3" x2="21" y1="12" y2="12"
+        animate={open ? { y: 0, rotate: -45 } : { y: 5, rotate: 0 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        style={lineStyle}
       />
     </svg>
   );
@@ -94,6 +96,18 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onDown = (e: MouseEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [menuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -110,6 +124,7 @@ export function SiteHeader() {
 
   return (
     <header
+      ref={headerRef}
       className={`fixed inset-x-0 top-0 z-50 transition-[padding] duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
       <div className="mx-auto max-w-[1400px] px-6">
