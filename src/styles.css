@@ -99,8 +99,8 @@
 
 /* LIGHT MODE — applied when html has .light */
 .light {
-  --poppy: oklch(0.58 0.22 22);
-  --poppy-deep: oklch(0.48 0.22 22);
+  --poppy: oklch(0.48 0.21 26);
+  --poppy-deep: oklch(0.40 0.22 26);
   --sage: oklch(0.55 0.09 145);
   --concrete: oklch(0.62 0 0);
   --concrete-soft: oklch(0.85 0 0);
