@@ -87,9 +87,10 @@ export function SiteFooter() {
           <div className="md:col-span-2 space-y-4">
             <div className="eyebrow">Jogi</div>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><a href="#" className="link-underline">Adatvédelem</a></li>
-              <li><a href="#" className="link-underline">Impresszum</a></li>
-              <li><a href="#" className="link-underline">ÁSZF</a></li>
+              <li><a href="https://makovskybeauty.hu/impresszum" target="_blank" rel="noreferrer" className="link-underline">Impresszum</a></li>
+              <li><a href="https://makovskybeauty.hu/aszf" target="_blank" rel="noreferrer" className="link-underline">ÁSZF</a></li>
+              <li><a href="https://makovskybeauty.hu/adatkezeles-2" target="_blank" rel="noreferrer" className="link-underline">Adatkezelés</a></li>
+              <li><a href="https://makovskybeauty.hu/sutitajekoztato" target="_blank" rel="noreferrer" className="link-underline">Sütitájékoztató</a></li>
             </ul>
           </div>
         </div>

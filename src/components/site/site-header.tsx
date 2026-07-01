@@ -6,10 +6,9 @@ import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Phone,
-  Menu,
-  X,
   MoonStar,
   SunMedium,
+  Home,
   User,
   Sparkles,
   Images,
@@ -27,16 +26,6 @@ import {
 import { useTheme } from "./theme-provider";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 
-type NavItem = { label: string; href: string };
-const NAV: NavItem[] = [
-  { label: "Szolgáltatások", href: "/szolgaltatasok" },
-  { label: "Rólam", href: "/rolam" },
-  { label: "Aktuális ajánlatok", href: "/aktualis-ajanlatok" },
-  { label: "Galéria", href: "/galeria" },
-  { label: "Blog", href: "/blog" },
-  { label: "Kapcsolat", href: "/kapcsolat" },
-];
-
 type MegaItem = {
   icon: typeof User;
   name: string;
@@ -49,6 +38,7 @@ const MEGA_GROUPS: MegaGroup[] = [
   {
     title: "Szalon",
     items: [
+      { icon: Home, name: "Kezdőlap", desc: "Vissza a főoldalra", href: "/" },
       { icon: User, name: "Rólam", desc: "Paksi Anett kozmetikus", href: "/rolam" },
       { icon: Sparkles, name: "Szolgáltatások", desc: "Teljes kezelési kínálat", href: "/szolgaltatasok" },
       { icon: Tag, name: "Aktuális ajánlatok", desc: "Szezonális kedvezmények", href: "/aktualis-ajanlatok" },
@@ -62,6 +52,7 @@ const MEGA_GROUPS: MegaGroup[] = [
       { icon: Star, name: "Referenciák", desc: "Vendégeim visszajelzései", href: "/referenciak" },
       { icon: HelpCircle, name: "GYIK", desc: "Gyakori kérdések", href: "/gyik" },
       { icon: ScrollText, name: "Szalonetikett", desc: "Hogyan készülj a látogatásra", href: "/szalonetikett" },
+      { icon: CalendarClock, name: "Kapcsolat", desc: "Foglalás, elérhetőség", href: "/kapcsolat" },
     ],
   },
   {
@@ -70,15 +61,38 @@ const MEGA_GROUPS: MegaGroup[] = [
       { icon: FlaskConical, name: "Kozmetikai márkák", desc: "Biodroga, Vagheggi, MEI, GMS…", href: "/markak" },
       { icon: Mail, name: "Hírlevél", desc: "Iratkozz fel az újdonságokra", href: "/hirlevel" },
       { icon: FileText, name: "Dokumentumok", desc: "Impresszum, ÁSZF, adatkezelés", href: "/dokumentumok" },
-      { icon: CalendarClock, name: "Következő szabad időpont", desc: "Foglalás előtti tájékoztató", href: "/kapcsolat" },
     ],
   },
 ];
 
+/** Animated hamburger → X (works on all viewports) */
+function MorphIcon({ open }: { open: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round">
+      <motion.line
+        x1="3" x2="21"
+        animate={open ? { y1: 12, y2: 12, rotate: 45 } : { y1: 7, y2: 7, rotate: 0 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        style={{ originX: "12px", originY: "12px" }}
+      />
+      <motion.line
+        x1="3" x2="21" y1="12" y2="12"
+        animate={open ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.15 }}
+      />
+      <motion.line
+        x1="3" x2="21"
+        animate={open ? { y1: 12, y2: 12, rotate: -45 } : { y1: 17, y2: 17, rotate: 0 }}
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        style={{ originX: "12px", originY: "12px" }}
+      />
+    </svg>
+  );
+}
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const { theme, toggle } = useTheme();
 
   useEffect(() => {
@@ -89,31 +103,36 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
-
-  // Close mega on Escape
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMegaOpen(false); };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[padding,backdrop-filter] duration-500 ${
-        scrolled ? "py-2" : "py-4"
-      }`}
-      onMouseLeave={() => setMegaOpen(false)}
+      className={`fixed inset-x-0 top-0 z-50 transition-[padding] duration-500 ${scrolled ? "py-2" : "py-4"}`}
     >
       <div className="mx-auto max-w-[1400px] px-6">
         <div
           className={`flex items-center justify-between rounded-full border border-line transition-all duration-500 ${
-            scrolled ? "h-12 px-4 glass" : "h-14 px-5 bg-background/40 backdrop-blur-md"
+            scrolled ? "h-12 px-3 glass" : "h-14 px-4 bg-background/40 backdrop-blur-md"
           }`}
         >
-          {/* Logo */}
+          {/* Left: Menu trigger */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="Menü"
+            aria-expanded={menuOpen}
+            className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-[12px] text-foreground/80 hover:text-foreground hover:border-line-strong transition-colors"
+          >
+            <MorphIcon open={menuOpen} />
+            <span className="text-mono uppercase tracking-widest text-[11px]">
+              {menuOpen ? "Bezárás" : "Menü"}
+            </span>
+          </button>
+
+          {/* Center: Logo */}
           <Link to="/" className="group flex items-center gap-2.5">
             <span className="relative inline-block size-2.5 rounded-full bg-poppy">
               <span className="absolute inset-0 rounded-full bg-poppy animate-ping opacity-40" />
@@ -122,20 +141,6 @@ export function SiteHeader() {
               Makovsky <span className="text-poppy italic">Beauty</span>
             </span>
           </Link>
-
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {NAV.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className="link-underline rounded-full px-3.5 py-1.5 text-[13px] font-medium text-foreground/80 transition-colors hover:text-foreground"
-                activeProps={{ className: "text-foreground" }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
 
           {/* Right */}
           <div className="flex items-center gap-2">
@@ -154,48 +159,26 @@ export function SiteHeader() {
             >
               {theme === "dark" ? <SunMedium className="size-4" /> : <MoonStar className="size-4" />}
             </button>
-            {/* Mega menu trigger (desktop) */}
-            <button
-              type="button"
-              onMouseEnter={() => setMegaOpen(true)}
-              onClick={() => setMegaOpen((o) => !o)}
-              aria-label="Teljes menü"
-              aria-expanded={megaOpen}
-              className="hidden lg:inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-[12px] text-foreground/80 hover:text-foreground hover:border-line-strong transition-colors"
-            >
-              <Menu className="size-3.5" />
-              Menü
-            </button>
-            <a
-              href="#foglalas"
+            <Link
+              to="/kapcsolat"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-foreground text-background px-4 py-2 text-[12px] font-medium transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
               Időpontfoglalás
               <ArrowUpRight className="size-3.5" />
-            </a>
-            <button
-              type="button"
-              className="lg:hidden grid size-9 place-items-center rounded-full border border-line"
-              onClick={() => setMobileOpen((o) => !o)}
-              aria-label="Menü"
-            >
-              {mobileOpen ? <X className="size-4" /> : <Menu className="size-4" />}
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Mega menu */}
+      {/* Menu panel */}
       <AnimatePresence>
-        {megaOpen && (
+        {menuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto mt-2 max-w-[1400px] px-6"
-            onMouseEnter={() => setMegaOpen(true)}
-            onMouseLeave={() => setMegaOpen(false)}
           >
             <div className="glass-panel rounded-3xl overflow-hidden shadow-2xl shadow-black/30">
               <div className="grid grid-cols-12 gap-0">
@@ -210,7 +193,7 @@ export function SiteHeader() {
                             <li key={it.name}>
                               <Link
                                 to={it.href as any}
-                                onClick={() => setMegaOpen(false)}
+                                onClick={() => setMenuOpen(false)}
                                 className="group flex items-start gap-3 rounded-xl p-2.5 -mx-2.5 transition-colors hover:bg-foreground/[0.04]"
                               >
                                 <span className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg border border-line bg-background/60 text-foreground/70 group-hover:text-poppy group-hover:border-poppy/40 transition-colors">
@@ -253,7 +236,7 @@ export function SiteHeader() {
                   </div>
                   <Link
                     to="/kapcsolat"
-                    onClick={() => setMegaOpen(false)}
+                    onClick={() => setMenuOpen(false)}
                     className="relative inline-flex items-center gap-2 text-[12px] text-mono text-foreground/80 hover:text-poppy transition-colors"
                   >
                     <MapPin className="size-3.5" />
@@ -268,52 +251,6 @@ export function SiteHeader() {
                   +36 30 658 2730
                 </a>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="lg:hidden fixed inset-0 top-[64px] bg-background z-40 overflow-y-auto"
-          >
-            <div className="px-6 py-8 space-y-1">
-              {NAV.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-between py-4 border-b border-line text-2xl font-serif"
-                >
-                  {item.label}
-                  <ArrowUpRight className="size-5 text-muted-foreground" />
-                </Link>
-              ))}
-              <div className="pt-6 space-y-1">
-                {MEGA_GROUPS.flatMap((g) => g.items).map((it) => (
-                  <Link
-                    key={it.href + it.name}
-                    to={it.href as any}
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between py-2.5 text-sm text-foreground/80"
-                  >
-                    {it.name}
-                    <ArrowUpRight className="size-4 text-muted-foreground" />
-                  </Link>
-                ))}
-              </div>
-              <a
-                href="tel:+36306582730"
-                className="mt-8 flex items-center gap-2 text-mono text-sm text-muted-foreground"
-              >
-                <Phone className="size-4" />
-                +36 30 658 2730
-              </a>
             </div>
           </motion.div>
         )}
