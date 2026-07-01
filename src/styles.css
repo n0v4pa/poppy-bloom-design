@@ -59,8 +59,8 @@
   --radius: 0.5rem;
 
   /* Brand */
-  --poppy: oklch(0.62 0.21 22);          /* pipacsvörös #D7263D-ish */
-  --poppy-deep: oklch(0.52 0.21 22);
+  --poppy: oklch(0.56 0.18 26);          /* mély pipacsvörös, olvasható */
+  --poppy-deep: oklch(0.46 0.19 26);
   --sage: oklch(0.65 0.08 145);          /* visszafogott zöld */
   --concrete: oklch(0.55 0 0);
   --concrete-soft: oklch(0.42 0 0);
