@@ -4,11 +4,11 @@
  * Használat: import { HERO_ILLUSTRATIONS } from "@/lib/hero-illustrations";
  */
 
-import poppyStem from "@/assets/hero/poppy-hero-01.jpg";
-import poppyTrio from "@/assets/hero/poppy-hero-02.jpg";
-import poppyAnatomy from "@/assets/hero/poppy-hero-03.jpg";
-import poppyField from "@/assets/hero/poppy-hero-04.jpg";
-import poppyConcreteCrack from "@/assets/hero/poppy-hero-05.jpg";
+import poppyStem from "@/assets/hero/poppy-hero-01.png";
+import poppyTrio from "@/assets/hero/poppy-hero-02.png";
+import poppyAnatomy from "@/assets/hero/poppy-hero-03.png";
+import poppyField from "@/assets/hero/poppy-hero-04.png";
+import poppyConcreteCrack from "@/assets/hero/poppy-hero-05.png";
 
 export interface HeroIllustration {
   id: string;
