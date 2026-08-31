@@ -7,7 +7,7 @@ import { SkinTabs } from "@/components/site/skin-tabs";
 import { BrandMarquee } from "@/components/site/brand-marquee";
 import { Testimonials } from "@/components/site/testimonials";
 
-import salonHero from "@/assets/salon-hero.jpg";
+import poppyHeroBg from "@/assets/poppy-hero-bg.jpg";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 import textureWater from "@/assets/texture-water.jpg";
 
@@ -52,7 +52,7 @@ function Hero() {
     <section ref={ref} className="relative isolate -mt-24 min-h-[100svh] overflow-hidden">
       {/* Background image with parallax */}
       <motion.div style={{ y: imgY }} className="absolute inset-0 -z-10">
-        <img src={salonHero} alt="" className="size-full object-cover object-center" />
+        <img src={poppyHeroBg} alt="" className="size-full object-cover object-center" width={1920} height={1280} />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
       </motion.div>
