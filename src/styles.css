@@ -11,7 +11,7 @@
    MAKOVSKY BEAUTY — DESIGN SYSTEM
    Premium kozmetikai szalon, Awwwards-szint
    Pipacsvörös + beton + lágy fekete/törtfehér + zöld akcent
-   Dark mode default, light mode támogatás
+   Light mode default, dark mode támogatás
    ============================================================ */
 
 @theme inline {
@@ -54,36 +54,36 @@
   --color-line-strong: var(--line-strong);
 }
 
-/* DARK MODE (default) */
+/* DARK MODE — base tokens, active when the .light override is absent */
 :root {
   --radius: 0.5rem;
 
   /* Brand */
-  --poppy: oklch(0.56 0.18 26);          /* mély pipacsvörös, olvasható */
+  --poppy: oklch(0.56 0.18 26); /* mély pipacsvörös, olvasható */
   --poppy-deep: oklch(0.46 0.19 26);
-  --sage: oklch(0.65 0.08 145);          /* visszafogott zöld */
+  --sage: oklch(0.65 0.08 145); /* visszafogott zöld */
   --concrete: oklch(0.55 0 0);
   --concrete-soft: oklch(0.42 0 0);
 
   /* Dark surfaces */
-  --background: oklch(0.13 0.005 270);   /* mély szén #0B0B0C */
-  --foreground: oklch(0.94 0.005 80);    /* meleg törtfehér #EDEAE4 */
-  --surface: oklch(0.16 0.005 270);
-  --surface-elevated: oklch(0.20 0.005 270);
+  --background: oklch(0.17 0.006 270); /* lágyabb, pasztelles szén */
+  --foreground: oklch(0.92 0.006 80); /* meleg törtfehér */
+  --surface: oklch(0.2 0.006 270);
+  --surface-elevated: oklch(0.23 0.006 270);
 
-  --card: oklch(0.16 0.005 270);
-  --card-foreground: oklch(0.94 0.005 80);
-  --popover: oklch(0.16 0.005 270);
-  --popover-foreground: oklch(0.94 0.005 80);
+  --card: oklch(0.2 0.006 270);
+  --card-foreground: oklch(0.92 0.006 80);
+  --popover: oklch(0.2 0.006 270);
+  --popover-foreground: oklch(0.92 0.006 80);
 
-  --primary: oklch(0.62 0.21 22);        /* poppy */
+  --primary: oklch(0.62 0.21 22); /* poppy */
   --primary-foreground: oklch(0.98 0.005 80);
-  --secondary: oklch(0.20 0.005 270);
-  --secondary-foreground: oklch(0.94 0.005 80);
-  --muted: oklch(0.20 0.005 270);
-  --muted-foreground: oklch(0.65 0.005 270);
-  --accent: oklch(0.20 0.005 270);
-  --accent-foreground: oklch(0.94 0.005 80);
+  --secondary: oklch(0.23 0.006 270);
+  --secondary-foreground: oklch(0.92 0.006 80);
+  --muted: oklch(0.23 0.006 270);
+  --muted-foreground: oklch(0.68 0.006 270);
+  --accent: oklch(0.23 0.006 270);
+  --accent-foreground: oklch(0.92 0.006 80);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 80);
 
@@ -100,12 +100,12 @@
 /* LIGHT MODE — applied when html has .light */
 .light {
   --poppy: oklch(0.48 0.21 26);
-  --poppy-deep: oklch(0.40 0.22 26);
+  --poppy-deep: oklch(0.4 0.22 26);
   --sage: oklch(0.55 0.09 145);
   --concrete: oklch(0.62 0 0);
   --concrete-soft: oklch(0.85 0 0);
 
-  --background: oklch(0.97 0.005 80);    /* meleg törtfehér */
+  --background: oklch(0.97 0.005 80); /* meleg törtfehér */
   --foreground: oklch(0.18 0.005 270);
   --surface: oklch(0.94 0.005 80);
   --surface-elevated: oklch(1 0 0);
@@ -128,7 +128,7 @@
 
   --line: oklch(0.18 0.005 270 / 0.08);
   --line-strong: oklch(0.18 0.005 270 / 0.18);
-  --border: oklch(0.18 0.005 270 / 0.10);
+  --border: oklch(0.18 0.005 270 / 0.1);
   --input: oklch(0.18 0.005 270 / 0.14);
   --ring: oklch(0.58 0.22 22);
 
@@ -241,20 +241,39 @@
 /* ============== ANIMATIONS ============== */
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 @keyframes drift {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -10px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
 }
 
 @utility animate-marquee {

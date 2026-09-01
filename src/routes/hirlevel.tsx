@@ -5,7 +5,11 @@ export const Route = createFileRoute("/hirlevel")({
   head: () => ({
     meta: [
       { title: "Hírlevél — Makovsky Beauty" },
-      { name: "description", content: "Iratkozz fel a Makovsky Beauty hírlevélre — szezonális ajánlatok, új kezelések és szakmai cikkek." },
+      {
+        name: "description",
+        content:
+          "Iratkozz fel a Makovsky Beauty hírlevélre — szezonális ajánlatok, új kezelések és szakmai cikkek.",
+      },
     ],
   }),
   component: NewsletterPage,
@@ -16,7 +20,11 @@ function NewsletterPage() {
     <>
       <PageHeader
         eyebrow="Hírlevél"
-        title={<>Iratkozz fel az <em className="italic text-poppy">újdonságokra.</em></>}
+        title={
+          <>
+            Iratkozz fel az <em className="italic text-poppy">újdonságokra.</em>
+          </>
+        }
         lead="Szezonális ajánlatok, új kezelések és bőrápolási tippek — havonta egyszer, kéretlen reklámok nélkül."
       />
       <section className="mx-auto max-w-xl px-6 py-20">
@@ -33,6 +41,10 @@ function NewsletterPage() {
           >
             Feliratkozom
           </button>
+          <label className="flex cursor-pointer items-start justify-center gap-2 pt-2 text-[11px] text-muted-foreground">
+            <input type="checkbox" required className="mt-0.5 size-4 shrink-0 accent-poppy" />
+            <span>Elolvastam és elfogadom a felhasználási feltételeket.</span>
+          </label>
           <p className="text-[11px] text-muted-foreground text-center">
             A feliratkozással elfogadod az adatkezelési tájékoztatót.
           </p>

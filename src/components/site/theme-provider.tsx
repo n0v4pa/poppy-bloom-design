@@ -13,17 +13,23 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 const STORAGE_KEY = "makovsky-theme";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  // Default: dark. Read preference on mount (avoid SSR hydration mismatch).
-  const [theme, setThemeState] = useState<Theme>("dark");
+  // Default: light. Read an existing explicit preference after hydration.
+  const [theme, setThemeState] = useState<Theme>("light");
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
-    if (stored === "light" || stored === "dark") {
-      setThemeState(stored);
-    }
+    const initialTheme: Theme = stored === "light" || stored === "dark" ? stored : "light";
+    const root = document.documentElement;
+
+    root.classList.toggle("light", initialTheme === "light");
+    root.classList.toggle("dark", initialTheme === "dark");
+    setThemeState(initialTheme);
+    setReady(true);
   }, []);
 
   useEffect(() => {
+    if (!ready) return;
     const root = document.documentElement;
     if (theme === "light") {
       root.classList.add("light");
@@ -37,11 +43,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     } catch {
       // ignore
     }
-  }, [theme]);
+  }, [ready, theme]);
 
   return (
     <ThemeContext.Provider
-      value={{ theme, toggle: () => setThemeState((t) => (t === "dark" ? "light" : "dark")), setTheme: setThemeState }}
+      value={{
+        theme,
+        toggle: () => setThemeState((t) => (t === "dark" ? "light" : "dark")),
+        setTheme: setThemeState,
+      }}
     >
       {children}
     </ThemeContext.Provider>

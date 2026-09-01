@@ -7,7 +7,7 @@ import { SkinTabs } from "@/components/site/skin-tabs";
 import { BrandMarquee } from "@/components/site/brand-marquee";
 import { Testimonials } from "@/components/site/testimonials";
 
-import poppyHeroBg from "@/assets/poppy-hero-bg.jpg";
+import poppyHero from "@/assets/hero/poppy-hero-02-transparent.png";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 import textureWater from "@/assets/texture-water.jpg";
 
@@ -15,9 +15,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Makovsky Beauty — Prémium kozmetikai szalon Budapesten" },
-      { name: "description", content: "Paksi Anett privát kozmetikai szalonja a Fő utca 49. szám alatt. Orvoskozmetika, Biodroga, Vagheggi, japán arcmasszázs, lágylézer." },
+      {
+        name: "description",
+        content:
+          "Paksi Anett privát kozmetikai szalonja a Fő utca 49. szám alatt. Orvoskozmetika, Biodroga, Vagheggi, japán arcmasszázs, lágylézer.",
+      },
       { property: "og:title", content: "Makovsky Beauty — Egy kezelőágy. Teljes figyelem." },
-      { property: "og:description", content: "Privát szalon Budapest II. kerületében. Orvoskozmetika és tudományos bőrápolás csendes környezetben." },
+      {
+        property: "og:description",
+        content:
+          "Privát szalon Budapest II. kerületében. Orvoskozmetika és tudományos bőrápolás csendes környezetben.",
+      },
     ],
   }),
   component: Home,
@@ -50,11 +58,19 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative isolate -mt-24 min-h-[100svh] overflow-hidden">
-      {/* Background image with parallax */}
-      <motion.div style={{ y: imgY }} className="absolute inset-0 -z-10">
-        <img src={poppyHeroBg} alt="" className="size-full object-cover object-center" width={1920} height={1280} />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
+      {/* Right-side botanical illustration with theme-safe transparency */}
+      <motion.div
+        style={{ y: imgY }}
+        className="pointer-events-none absolute right-[-12%] top-24 -z-10 w-[78vw] max-w-[760px] opacity-45 sm:right-[-6%] sm:w-[62vw] sm:opacity-60 lg:right-[2%] lg:w-[42vw] lg:opacity-90"
+      >
+        <div className="absolute inset-[18%] rounded-full bg-poppy/8 blur-3xl" />
+        <img
+          src={poppyHero}
+          alt=""
+          className="relative h-auto w-full drop-shadow-[0_30px_60px_rgba(80,30,25,0.12)] dark:brightness-[1.45] dark:saturate-[0.88]"
+          width={1024}
+          height={1280}
+        />
       </motion.div>
 
       {/* Top status bar */}
@@ -66,14 +82,18 @@ function Hero() {
       </div>
 
       {/* Headline */}
-      <motion.div style={{ y: titleY, opacity }} className="relative mx-auto max-w-[1400px] px-6 pt-10 md:pt-14">
+      <motion.div
+        style={{ y: titleY, opacity }}
+        className="relative mx-auto max-w-[1400px] px-6 pt-10 md:pt-14"
+      >
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           className="text-display text-[clamp(3.5rem,12vw,11rem)] leading-[0.85] max-w-[14ch]"
         >
-          Egy kezelőágy.{" "}
+          Egy kezelőágy.
+          <br />
           <em className="italic text-poppy">Teljes figyelem.</em>
         </motion.h1>
 
@@ -83,9 +103,9 @@ function Hero() {
           transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
           className="mt-8 max-w-xl text-base md:text-lg text-foreground/80 leading-relaxed"
         >
-          <span className="text-foreground">Üdvözöllek!</span> Paksi Anett vagyok. Szeretettel várlak
-          szalonomba — ahol a látogatás első pillanatától az elköszönésig csak Te és én vagyunk
-          jelen.
+          <span className="text-foreground">Üdvözöllek!</span> Paksi Anett vagyok. Szeretettel
+          várlak szalonomba — ahol a látogatás első pillanatától az elköszönésig csak Te és én
+          vagyunk jelen.
         </motion.p>
 
         <motion.div
@@ -147,7 +167,12 @@ function Philosophy() {
       <div className="mx-auto max-w-[1400px] px-6 py-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5 order-2 lg:order-1">
           <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-line">
-            <img src={textureWater} alt="Csepp egy levelen" className="size-full object-cover" loading="lazy" />
+            <img
+              src={textureWater}
+              alt="Csepp egy levelen"
+              className="size-full object-cover"
+              loading="lazy"
+            />
             <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent" />
             <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between text-mono text-[10px] uppercase tracking-widest text-foreground/80">
               <span>Részlet</span>
@@ -159,9 +184,9 @@ function Philosophy() {
         <div className="lg:col-span-7 order-1 lg:order-2">
           <p className="eyebrow text-poppy">Filozófia</p>
           <h2 className="mt-5 text-display text-3xl md:text-4xl lg:text-5xl leading-[1.05]">
-            <span className="text-poppy text-5xl leading-none align-top mr-1">„</span>
-            A bőrproblémák megoldásán túl a legnagyobb és számomra legszebb dolog az, hogy
-            problémamegoldó és egyben relaxáló, lelket is feltöltő szolgáltatásaimat
+            <span className="text-poppy text-5xl leading-none align-top mr-1">„</span>A bőrproblémák
+            megoldásán túl a legnagyobb és számomra legszebb dolog az, hogy problémamegoldó és
+            egyben relaxáló, lelket is feltöltő szolgáltatásaimat
             <em className="italic text-poppy"> pihentető, csendes környezetben</em>, teljeskörű
             odafigyeléssel igyekszem vendégeimnek nyújtani.
           </h2>
@@ -184,8 +209,16 @@ function Philosophy() {
    ============================================================ */
 function BlogPreview() {
   const posts = [
-    { tag: "Kezelések", date: "2024.01.14.", title: "Japán arcmasszázs — speciális arcszobrász technika" },
-    { tag: "Kezelések", date: "2024.01.14.", title: "Lifting — a megereszkedett arckontúrok kezelése" },
+    {
+      tag: "Kezelések",
+      date: "2024.01.14.",
+      title: "Japán arcmasszázs — speciális arcszobrász technika",
+    },
+    {
+      tag: "Kezelések",
+      date: "2024.01.14.",
+      title: "Lifting — a megereszkedett arckontúrok kezelése",
+    },
     { tag: "Kezelések", date: "2024.01.14.", title: "Rádiófrekvencia és elektroporáció" },
   ];
 
@@ -244,7 +277,12 @@ function Voucher() {
   return (
     <section className="mx-auto max-w-[1400px] px-6">
       <div className="relative isolate overflow-hidden rounded-[2rem] border border-line">
-        <img src={poppyConcrete} alt="" className="absolute inset-0 size-full object-cover -z-10" loading="lazy" />
+        <img
+          src={poppyConcrete}
+          alt=""
+          className="absolute inset-0 size-full object-cover -z-10"
+          loading="lazy"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/30 -z-10" />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-10 md:p-16 lg:p-20">
@@ -256,9 +294,9 @@ function Voucher() {
               Ajándékozz <em className="italic text-poppy">énidőt.</em>
             </h2>
             <p className="mt-6 max-w-md text-base text-foreground/75 leading-relaxed">
-              Arckezelésre, masszázsra, feltöltődésre ad lehetőséget ez a névre szóló ajándékutalvány,
-              amely bármely összeggel megvásárolható és a Makovsky Beauty szalon valamennyi kozmetikai
-              szolgáltatására felhasználható.
+              Arckezelésre, masszázsra, feltöltődésre ad lehetőséget ez a névre szóló
+              ajándékutalvány, amely bármely összeggel megvásárolható és a Makovsky Beauty szalon
+              valamennyi kozmetikai szolgáltatására felhasználható.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -280,8 +318,8 @@ function Voucher() {
           <div className="hidden lg:block relative">
             <div className="absolute inset-y-0 right-0 flex flex-col justify-end items-end gap-4">
               <div className="text-mono text-[11px] uppercase tracking-widest text-muted-foreground text-right">
-                Tetszőleges összegben<br />
-                A szalon minden szolgáltatására
+                Tetszőleges összegben
+                <br />A szalon minden szolgáltatására
               </div>
               <div className="text-display text-[12rem] leading-none text-foreground/[0.08]">€</div>
             </div>
@@ -322,7 +360,8 @@ function Visit() {
           <div>
             <div className="eyebrow">Látogass meg</div>
             <div className="mt-3 text-display text-3xl md:text-4xl group-hover:text-poppy transition-colors">
-              Budapest II. ker.<br />
+              Budapest II. ker.
+              <br />
               Fő utca 49.
             </div>
           </div>

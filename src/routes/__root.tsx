@@ -20,7 +20,9 @@ function NotFoundComponent() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <p className="eyebrow mb-6 text-poppy">404 — Eltévedt oldal</p>
-        <h1 className="text-display text-6xl">Ez a kezelés <span className="italic">nincs a kínálatban.</span></h1>
+        <h1 className="text-display text-6xl">
+          Ez a kezelés <span className="italic">nincs a kínálatban.</span>
+        </h1>
         <p className="mt-6 text-sm text-muted-foreground">
           Az oldal, amit keresel, már nem érhető el. Visszahívunk a főoldalra.
         </p>
@@ -54,7 +56,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="rounded-full bg-foreground text-background px-5 py-2 text-sm font-medium"
           >
             Újratöltés
@@ -81,7 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Makovsky Beauty" },
       { property: "og:title", content: "Makovsky Beauty — Prémium kozmetikai szalon" },
-      { property: "og:description", content: "Egyetlen kezelőágy, teljes figyelem. Budapest II. kerület, Fő utca 49." },
+      {
+        property: "og:description",
+        content: "Egyetlen kezelőágy, teljes figyelem. Budapest II. kerület, Fő utca 49.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -95,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="hu" className="dark">
+    <html lang="hu" className="light">
       <head>
         <HeadContent />
       </head>

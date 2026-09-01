@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/site/page-header";
+import poppyHero from "@/assets/hero/poppy-hero-02-transparent.png";
 
 export const Route = createFileRoute("/rolam")({
   head: () => ({
     meta: [
       { title: "Rólam — Paksi Anett kozmetikus | Makovsky Beauty" },
-      { name: "description", content: "Paksi Anett kozmetikus mester, a Makovsky Beauty alapítója. Bemutatkozás, szakmai felkészültség és a szalon filozófiája." },
+      {
+        name: "description",
+        content:
+          "Paksi Anett kozmetikus mester, a Makovsky Beauty alapítója. Bemutatkozás, szakmai felkészültség és a szalon filozófiája.",
+      },
     ],
   }),
   component: AboutPage,
@@ -16,11 +21,38 @@ function AboutPage() {
     <>
       <PageHeader
         eyebrow="Rólam · Paksi Anett"
-        title={<>Minden, amit tudnod kell <em className="italic text-poppy">rólam.</em></>}
+        title={
+          <>
+            Minden, amit tudnod kell <em className="italic text-poppy">rólam.</em>
+          </>
+        }
         lead="Kozmetikus vagyok — hivatásomnak érzem ezt a szakmát, amely tele van kihívásokkal, meglepetésekkel és örömmel."
       />
 
       <section className="mx-auto max-w-[1400px] px-6 py-16 space-y-24">
+        <div className="grid items-center gap-8 overflow-hidden rounded-3xl border border-line bg-surface p-6 md:grid-cols-[1fr_320px] md:p-10">
+          <div>
+            <p className="eyebrow text-poppy">Privát figyelem</p>
+            <h2 className="mt-4 max-w-2xl text-display text-4xl leading-tight md:text-5xl">
+              Csak Ön és én vagyunk jelen.
+            </h2>
+            <p className="mt-5 max-w-xl leading-relaxed text-foreground/70">
+              A látogatás első pillanatától az elköszönésig nyugodt, személyes tér és osztatlan
+              figyelem várja.
+            </p>
+          </div>
+          <div className="pointer-events-none relative mx-auto aspect-[4/5] w-full max-w-[280px]">
+            <div className="absolute inset-[14%] rounded-full bg-poppy/8 blur-3xl" />
+            <img
+              src={poppyHero}
+              alt="Három pipacsvirág botanikus illusztrációja"
+              className="relative size-full object-contain dark:brightness-[1.45] dark:saturate-[0.88]"
+              width={1024}
+              height={1280}
+            />
+          </div>
+        </div>
+
         {/* Miért szeretem a munkám */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
@@ -31,17 +63,28 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-8 space-y-5 text-foreground/85 leading-relaxed">
             <p className="text-display text-xl md:text-2xl leading-snug text-foreground">
-              <span className="text-poppy text-3xl leading-none align-top mr-2">„</span>
-              A bőrproblémák megoldásán túl a legnagyobb és számomra legszebb dolog az, hogy problémamegoldó és egyben relaxáló, lelket is feltöltő szolgáltatásaimat pihentető, csendes környezetben, teljeskörű odafigyeléssel igyekszem vendégeimnek nyújtani.
+              <span className="text-poppy text-3xl leading-none align-top mr-2">„</span>A
+              bőrproblémák megoldásán túl a legnagyobb és számomra legszebb dolog az, hogy
+              problémamegoldó és egyben relaxáló, lelket is feltöltő szolgáltatásaimat pihentető,
+              csendes környezetben, teljeskörű odafigyeléssel igyekszem vendégeimnek nyújtani.
             </p>
             <p>
-              A szalon kialakítása is ennek a tükrében zajlott. Itt minden kis apróság a vendég kényelmét szolgálja. Csak ő és én vagyunk jelen a látogatás első pillanatától az elköszönésig.
+              A szalon kialakítása is ennek a tükrében zajlott. Itt minden kis apróság a vendég
+              kényelmét szolgálja. Csak ő és én vagyunk jelen a látogatás első pillanatától az
+              elköszönésig.
             </p>
             <p>
-              Mivel számos lehetőség, számos út vezethet az elérendő célig, így sokrétű szakmai tudásom segítségével, valamint a vendég igényeinek és lehetőségeinek felmérésével, mindig közösen tervezzük meg a kezelések-kúrák sorát.
+              Mivel számos lehetőség, számos út vezethet az elérendő célig, így sokrétű szakmai
+              tudásom segítségével, valamint a vendég igényeinek és lehetőségeinek felmérésével,
+              mindig közösen tervezzük meg a kezelések-kúrák sorát.
             </p>
             <p>
-              Az első találkozás során egy alapos beszélgetéssel igyekszem feltárni a bőrprobléma kialakulásához vezető okokat. A bőrdiagnózis után otthonápolási- és kúra javaslatot készítek, amelyet e-mail formájában kézhez kap a vendég. Ez a javaslat kitér „belső kozmetikumok”, azaz étrendkiegészítők használatára is. Mivel a bőrön megjelenő változások mindig tükrözik a belső folyamatokat, nagyon fontos, hogy belülről is segítsük a bőr épülését.
+              Az első találkozás során egy alapos beszélgetéssel igyekszem feltárni a bőrprobléma
+              kialakulásához vezető okokat. A bőrdiagnózis után otthonápolási- és kúra javaslatot
+              készítek, amelyet e-mail formájában kézhez kap a vendég. Ez a javaslat kitér „belső
+              kozmetikumok”, azaz étrendkiegészítők használatára is. Mivel a bőrön megjelenő
+              változások mindig tükrözik a belső folyamatokat, nagyon fontos, hogy belülről is
+              segítsük a bőr épülését.
             </p>
           </div>
         </div>
@@ -59,14 +102,40 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-8 space-y-5 text-foreground/85 leading-relaxed">
             <p>
-              A klasszikus kozmetikai kezeléseken túl olyan exkluzív szolgáltatásokat kínálok, mint a <strong className="text-foreground">Vagheggi Skin Analyserrel</strong> végzett gépi <strong className="text-foreground">bőrdiagnosztika</strong>, az <strong className="text-foreground">Optikop lágylézerrel</strong> végzett akne-, rozácea- és anti-age kezelések, a csúcstechnológiájú Dr. Derm <strong className="text-foreground">elektroporációs hatóanyag-bejuttatás és RF</strong>, és a problémamegoldó, ősi kínai rózsakvarc <strong className="text-foreground">Gua Sha & Roller</strong> arc-, nyak- és dekoltázs-masszázsok.
+              A klasszikus kozmetikai kezeléseken túl olyan exkluzív szolgáltatásokat kínálok, mint
+              a <strong className="text-foreground">Vagheggi Skin Analyserrel</strong> végzett gépi{" "}
+              <strong className="text-foreground">bőrdiagnosztika</strong>, az{" "}
+              <strong className="text-foreground">Optikop lágylézerrel</strong> végzett akne-,
+              rozácea- és anti-age kezelések, a csúcstechnológiájú Dr. Derm{" "}
+              <strong className="text-foreground">
+                elektroporációs hatóanyag-bejuttatás és RF
+              </strong>
+              , és a problémamegoldó, ősi kínai rózsakvarc{" "}
+              <strong className="text-foreground">Gua Sha & Roller</strong> arc-, nyak- és
+              dekoltázs-masszázsok.
             </p>
             <p>
-              Munkámban a római székhelyű <strong className="text-foreground">GMS Beauty</strong> prémiumkategóriás orvoskozmetikai termékeivel, a szintén olasz <strong className="text-foreground">MEI</strong> elbűvölő és természetes növényi hatóanyagaival, a német <strong className="text-foreground">Biodroga</strong> cég <em>Organic</em> és <em>Medical</em> kozmetikumaival, valamint „belső kozmetikumokkal” és különleges masszázstechnikákkal igyekszem a leginkább személyre szabott kezeléseket, kezelési kúrákat összeállítani vendégeim számára.
+              Munkámban a római székhelyű <strong className="text-foreground">GMS Beauty</strong>{" "}
+              prémiumkategóriás orvoskozmetikai termékeivel, a szintén olasz{" "}
+              <strong className="text-foreground">MEI</strong> elbűvölő és természetes növényi
+              hatóanyagaival, a német <strong className="text-foreground">Biodroga</strong> cég{" "}
+              <em>Organic</em> és <em>Medical</em> kozmetikumaival, valamint „belső kozmetikumokkal”
+              és különleges masszázstechnikákkal igyekszem a leginkább személyre szabott
+              kezeléseket, kezelési kúrákat összeállítani vendégeim számára.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
-              {["Biodroga","Vagheggi","MEI Beauty","GMS Beauty","Optikop lágylézer","Dr. Derm RF"].map((b) => (
-                <div key={b} className="rounded-xl border border-line bg-surface/60 px-3 py-2 text-[12px] text-mono uppercase tracking-wider text-foreground/70">
+              {[
+                "Biodroga",
+                "Vagheggi",
+                "MEI Beauty",
+                "GMS Beauty",
+                "Optikop lágylézer",
+                "Dr. Derm RF",
+              ].map((b) => (
+                <div
+                  key={b}
+                  className="rounded-xl border border-line bg-surface/60 px-3 py-2 text-[12px] text-mono uppercase tracking-wider text-foreground/70"
+                >
                   {b}
                 </div>
               ))}
@@ -87,7 +156,11 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-8 space-y-5 text-foreground/85 leading-relaxed">
             <p>
-              Nagyon fontos számomra a naprakész szakmai tudás, a felkészültség, ezért számos tanfolyam elvégzésével igyekszem azt folyamatosan bővíteni, csiszolni és elmélyíteni, hogy a kozmetikai ipar folyamatos fejlődésével lépést tartva mindig a legmegfelelőbb és legjobb eredményeket nyújtó szolgáltatást kínálhassam Neked — és bármikor bizalommal fordulhass hozzám.
+              Nagyon fontos számomra a naprakész szakmai tudás, a felkészültség, ezért számos
+              tanfolyam elvégzésével igyekszem azt folyamatosan bővíteni, csiszolni és elmélyíteni,
+              hogy a kozmetikai ipar folyamatos fejlődésével lépést tartva mindig a legmegfelelőbb
+              és legjobb eredményeket nyújtó szolgáltatást kínálhassam Neked — és bármikor
+              bizalommal fordulhass hozzám.
             </p>
           </div>
         </div>
@@ -105,7 +178,12 @@ function AboutPage() {
           </div>
           <div className="lg:col-span-8 space-y-5 text-foreground/85 leading-relaxed">
             <p>
-              Ha hozzám betérsz, és esetleg fáradtan, éhesen és szomjasan érkezel, biztos lehetsz benne, hogy nem fogod az itt töltött időt feszengve tölteni, mert minden kedves vendégemet nagy-nagy szeretettel és egy csésze teával, kávéval, egy kis keksszel, aprósüteménnyel várom. Búcsúzáskor pedig sosem maradhat el egy falat ínycsiklandó csokoládé, de ha valaki valami miatt ezt nem fogyaszthatja, annak a gyümölcskosár nyújt vigasztalást. 😊
+              Ha hozzám betérsz, és esetleg fáradtan, éhesen és szomjasan érkezel, biztos lehetsz
+              benne, hogy nem fogod az itt töltött időt feszengve tölteni, mert minden kedves
+              vendégemet nagy-nagy szeretettel és egy csésze teával, kávéval, egy kis keksszel,
+              aprósüteménnyel várom. Búcsúzáskor pedig sosem maradhat el egy falat ínycsiklandó
+              csokoládé, de ha valaki valami miatt ezt nem fogyaszthatja, annak a gyümölcskosár
+              nyújt vigasztalást. 😊
             </p>
             <p className="text-display text-2xl text-foreground italic">
               Várlak téged is szeretettel!
