@@ -7,7 +7,7 @@ import { SkinTabs } from "@/components/site/skin-tabs";
 import { BrandMarquee } from "@/components/site/brand-marquee";
 import { Testimonials } from "@/components/site/testimonials";
 
-import poppyHero from "@/assets/hero/poppy-hero-02-transparent.png";
+import poppyHeroBg from "@/assets/poppy-hero-bg.jpg";
 import poppyConcrete from "@/assets/poppy-concrete.jpg";
 import textureWater from "@/assets/texture-water.jpg";
 
@@ -58,19 +58,17 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative isolate -mt-24 min-h-[100svh] overflow-hidden">
-      {/* Right-side botanical illustration with theme-safe transparency */}
-      <motion.div
-        style={{ y: imgY }}
-        className="pointer-events-none absolute right-[-12%] top-24 -z-10 w-[78vw] max-w-[760px] opacity-45 sm:right-[-6%] sm:w-[62vw] sm:opacity-60 lg:right-[2%] lg:w-[42vw] lg:opacity-90"
-      >
-        <div className="absolute inset-[18%] rounded-full bg-poppy/8 blur-3xl" />
+      {/* Background image with parallax */}
+      <motion.div style={{ y: imgY }} className="absolute inset-0 -z-10">
         <img
-          src={poppyHero}
+          src={poppyHeroBg}
           alt=""
-          className="relative h-auto w-full drop-shadow-[0_30px_60px_rgba(80,30,25,0.12)] dark:brightness-[1.45] dark:saturate-[0.88]"
-          width={1024}
+          className="size-full object-cover object-center"
+          width={1920}
           height={1280}
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-transparent" />
       </motion.div>
 
       {/* Top status bar */}
